@@ -6,10 +6,10 @@ import { useCallback } from "react";
 import { TbPhotoPlus } from 'react-icons/tb'
 
 declare global {
-  var cloudinary: any
+  var cloudinary: any;
 }
 
-const uploadPreset = "pgc9ehd5";
+
 
 interface ImageUploadProps {
   onChange: (value: string) => void;
@@ -27,7 +27,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   return (
     <CldUploadWidget 
       onUpload={handleUpload} 
-      uploadPreset={uploadPreset}
+      uploadPreset="vcopeibb"
       options={{
         maxFiles: 1
       }}
@@ -57,16 +57,17 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               size={50}
             />
             <div className="font-semibold text-lg">
-              Click to upload
+                Haz clic para subir
             </div>
             {value && (
               <div className="
               absolute inset-0 w-full h-full">
                 <Image
+
                   fill 
                   style={{ objectFit: 'cover' }} 
                   src={value} 
-                  alt="House" 
+                  alt="Upload" 
                 />
               </div>
             )}
@@ -78,3 +79,4 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 }
 
 export default ImageUpload;
+
