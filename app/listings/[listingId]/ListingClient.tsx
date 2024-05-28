@@ -1,43 +1,47 @@
-'use client';
+'use client'; // Indica el tipo de entorno, en este caso, cliente
 
-import axios from "axios";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "react-hot-toast";
-import { Range } from "react-date-range";
-import { useRouter } from "next/navigation";
-import { differenceInDays, eachDayOfInterval } from 'date-fns';
+// Importaciones de librerías y componentes
+import axios from "axios"; // Importa la librería Axios para realizar solicitudes HTTP
+import { useCallback, useEffect, useMemo, useState } from "react"; // Importa funciones y tipos de React
+import { toast } from "react-hot-toast"; // Importa la librería react-hot-toast para notificaciones
+import { Range } from "react-date-range"; // Importa el componente Range de react-date-range
+import { useRouter } from "next/navigation"; // Importa el hook useRouter de next/navigation para acceder al enrutador de Next.js
+import { differenceInDays, eachDayOfInterval } from 'date-fns'; // Importa funciones de date-fns para manipulación de fechas
 
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import useLoginModal from "@/app/hooks/useLoginModal"; // Importa un hook personalizado para el modal de inicio de sesión
+import { SafeListing, SafeUser, SafeReservation } from "@/app/types"; // Importa tipos de datos seguros
 
-import Container from "@/app/components/Container";
-import { categories } from "@/app/components/navbar/Categories";
-import ListingHead from "@/app/components/listings/ListingHead";
-import ListingInfo from "@/app/components/listings/ListingInfo";
-import ListingReservation from "@/app/components/listings/ListingReservation";
+import Container from "@/app/components/Container"; // Importa el componente Container
+import { categories } from "@/app/components/navbar/Categories"; // Importa la lista de categorías desde un archivo local
+import ListingHead from "@/app/components/listings/ListingHead"; // Importa el componente ListingHead
+import ListingInfo from "@/app/components/listings/ListingInfo"; // Importa el componente ListingInfo
+import ListingReservation from "@/app/components/listings/ListingReservation"; // Importa el componente ListingReservation
 
-const initialDateRange = {
+const initialDateRange = { // Define el rango de fecha inicial
   startDate: new Date(),
   endDate: new Date(),
   key: 'selection'
 };
 
+// Props del componente ListingClient
 interface ListingClientProps {
-  reservations?: SafeReservation[];
-  listing: SafeListing & {
-    user: SafeUser;
+  reservations?: SafeReservation[]; // Lista de reservaciones (opcional)
+  listing: SafeListing & { // Detalles del listado seguro con el usuario
+    user: SafeUser; // Usuario propietario del listado
   };
-  currentUser?: SafeUser | null;
+  currentUser?: SafeUser | null; // Usuario actual (opcional)
 }
 
+// Componente funcional ListingClient
 const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   reservations = [],
   currentUser
 }) => {
-  const loginModal = useLoginModal();
-  const router = useRouter();
+  const loginModal = useLoginModal(); // Hook personalizado para el modal de inicio de sesión
+  const router = useRouter(); // Hook useRouter para acceder al enrutador de Next.js
 
+  // Calcula las fechas deshabilitadas basadas en las reservaciones existentes
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
 
@@ -53,36 +57,40 @@ const ListingClient: React.FC<ListingClientProps> = ({
     return dates;
   }, [reservations]);
 
+  // Encuentra la categoría del listado actual
   const category = useMemo(() => {
      return categories.find((items) => 
       items.label === listing.category);
   }, [listing.category]);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(listing.price);
-  const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  // Estados del componente
+  const [isLoading, setIsLoading] = useState(false); // Estado para indicar si se está cargando
+  const [totalPrice, setTotalPrice] = useState(listing.price); // Estado para el precio total
+  const [dateRange, setDateRange] = useState<Range>(initialDateRange); // Estado para el rango de fechas seleccionado
 
+  // Función para crear una reserva
   const onCreateReservation = useCallback(() => {
-      if (!currentUser) {
+      if (!currentUser) { // Si no hay usuario actual, abre el modal de inicio de sesión
         return loginModal.onOpen();
       }
-      setIsLoading(true);
+      setIsLoading(true); // Indica que se está cargando
 
+      // Realiza una solicitud POST para crear una reserva
       axios.post('/api/reservations', {
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing?.id
       })
-      .then(() => {
-        toast.success('Listing reserved!');
-        setDateRange(initialDateRange);
-        router.push('/trips');
+      .then(() => { // Si la solicitud es exitosa, muestra una notificación y redirige al usuario
+        toast.success('Evento reservado!');
+        setDateRange(initialDateRange); // Restablece el rango de fechas
+        router.push('/trips'); // Redirige a la página de viajes
       })
-      .catch(() => {
+      .catch(() => { // Si hay un error en la solicitud, muestra una notificación de error
         toast.error('Something went wrong.');
       })
-      .finally(() => {
+      .finally(() => { // Después de que la solicitud termine (éxito o error), indica que la carga ha terminado
         setIsLoading(false);
       })
   },
@@ -95,6 +103,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
     loginModal
   ]);
 
+  // Efecto secundario para calcular el precio total basado en el rango de fechas seleccionado
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInDays(
@@ -102,30 +111,31 @@ const ListingClient: React.FC<ListingClientProps> = ({
         dateRange.startDate
       );
       
-      if (dayCount && listing.price) {
-        setTotalPrice(dayCount * listing.price);
+      if (dayCount && listing.price) { // Si hay un número válido de días y un precio de listado válido
+        setTotalPrice(dayCount * listing.price); // Calcula el precio total
       } else {
-        setTotalPrice(listing.price);
+        setTotalPrice(listing.price); // Utiliza el precio base del listado
       }
     }
   }, [dateRange, listing.price]);
 
+  // Renderiza el componente
   return ( 
-    <Container>
+    <Container> {/* Contenedor principal */}
       <div 
         className="
           max-w-screen-lg 
           mx-auto
         "
       >
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6"> {/* Contenedor de elementos */}
           <ListingHead
             title={listing.title}
             imageSrc={listing.imageSrc}
             locationValue={listing.locationValue}
             id={listing.id}
             currentUser={currentUser}
-          />
+          /> {/* Cabecera del listado */}
           <div 
             className="
               grid 
@@ -134,7 +144,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               md:gap-10 
               mt-6
             "
-          >
+          > {/* Contenedor de información del listado y formulario de reserva */}
             <ListingInfo
               user={listing.user}
               category={category}
@@ -143,7 +153,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               guestCount={listing.guestCount}
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
-            />
+            /> {/* Información detallada del listado */}
             <div 
               className="
                 order-first 
@@ -151,7 +161,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 md:order-last 
                 md:col-span-3
               "
-            >
+            > {/* Formulario de reserva */}
               <ListingReservation
                 price={listing.price}
                 totalPrice={totalPrice}
@@ -169,4 +179,5 @@ const ListingClient: React.FC<ListingClientProps> = ({
    );
 }
  
-export default ListingClient;
+export default ListingClient; // Exporta el componente ListingClient por defecto
+
