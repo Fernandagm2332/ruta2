@@ -28,7 +28,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
 
     axios.delete(`/api/reservations/${id}`)
     .then(() => {
-      toast.success('Reservation cancelled');
+      toast.success('Reservacion cancelada');
       router.refresh();
     })
     .catch(() => {
@@ -42,8 +42,8 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
   return (
     <Container>
       <Heading
-        title="Reservations"
-        subtitle="Bookings on your properties"
+        title="Reservaciones"
+        subtitle="Reservas en sus eventos"
       />
       <div 
         className="
@@ -66,7 +66,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
             actionId={reservation.id}
             onAction={onCancel}
             disabled={deletingId === reservation.id}
-            actionLabel="Cancel guest reservation"
+            actionLabel="Cancelar la reservación de un participante"
             currentUser={currentUser}
           />
         ))}
