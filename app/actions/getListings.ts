@@ -4,7 +4,7 @@ export interface IListingsParams {
   userId?: string;
   guestCount?: number;
   roomCount?: number;
-  bathroomCount?: number;
+  bathroomCount?: string;
   startDate?: string;
   endDate?: string;
   locationValue?: string;
@@ -49,9 +49,7 @@ export default async function getListings(
     }
 
     if (bathroomCount) {
-      query.bathroomCount = {
-        gte: +bathroomCount
-      }
+      query.bathroomCount = bathroomCount;
     }
 
     if (locationValue) {
@@ -94,3 +92,4 @@ export default async function getListings(
     throw new Error(error);
   }
 }
+
