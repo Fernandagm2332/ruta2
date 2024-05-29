@@ -1,102 +1,59 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
+import { TbBike, TbMountain,  TbRoad } from 'react-icons/tb';
 import { 
-  GiBarn, 
-  GiBoatFishing, 
-  GiCactus, 
-  GiCastle, 
-  GiCaveEntrance, 
-  GiForestCamp, 
-  GiIsland,
-  GiWindmill
+
+  GiCheckeredFlag, 
+  GiEscalator, 
+
 } from 'react-icons/gi';
-import { FaSkiing } from 'react-icons/fa';
-import { BsSnow } from 'react-icons/bs';
-import { IoDiamond } from 'react-icons/io5';
-import { MdOutlineVilla } from 'react-icons/md';
+
 
 import CategoryBox from "../CategoryBox";
 import Container from '../Container';
+import { FaMountainCity, FaRoad } from 'react-icons/fa6';
+import { RxLetterCaseCapitalize } from 'react-icons/rx';
+
 
 
 export const categories = [
   {
-    label: 'Beach',
-    icon: TbBeach,
-    description: 'This property is close to the beach!',
+    label: 'Carretera',
+    icon: TbRoad,
+    description: 'Esta ruta es diseñada especificamente para carreras de ruta, ideal para ciclistas que buscan velocidad y resistencia.!',
   },
   {
-    label: 'Windmills',
-    icon: GiWindmill,
-    description: 'This property is has windmills!',
-  },
-  {
-    label: 'Modern',
-    icon: MdOutlineVilla,
-    description: 'This property is modern!'
-  },
-  {
-    label: 'Countryside',
+    label: 'Montaña',
     icon: TbMountain,
-    description: 'This property is in the countryside!'
+    description: 'Senderos y caminos sin pavimetar, atravesando bosques, colinas y montañas.!',
   },
   {
-    label: 'Pools',
-    icon: TbPool,
-    description: 'This is property has a beautiful pool!'
+    label: 'Pista o Velódromo',
+    icon: GiCheckeredFlag,
+    description: 'Circuito cerrado especialmemte diseñado para carrera de velocidad en bicicletas de pista!'
   },
   {
-    label: 'Islands',
-    icon: GiIsland,
-    description: 'This property is on an island!'
+    label: 'BMX',
+    icon: RxLetterCaseCapitalize,
+    description: 'Diseñado para pistas cortas con obstaculos, saltos y cuervas cerradas.!'
   },
   {
-    label: 'Lake',
-    icon: GiBoatFishing,
-    description: 'This property is near a lake!'
+    label: 'Ciclismo Urbano',
+    icon: TbBike,
+    description: 'Recorridos en entornos urbanos, ya sea para desplazamientos diarios, paseos o turismo.'
   },
   {
-    label: 'Skiing',
-    icon: FaSkiing,
-    description: 'This property has skiing activies!'
+    label: 'Ciclismo híbrido',
+    icon: FaMountainCity,
+    description: 'Combina elementos de carretera y montaña'
   },
   {
-    label: 'Castles',
-    icon: GiCastle,
-    description: 'This property is an ancient castle!'
+    label: 'Ciclismo de trial',
+    icon: GiEscalator,
+    description: 'Se realiza en obstaculos y terrenos dificiles!'
   },
-  {
-    label: 'Caves',
-    icon: GiCaveEntrance,
-    description: 'This property is in a spooky cave!'
-  },
-  {
-    label: 'Camping',
-    icon: GiForestCamp,
-    description: 'This property offers camping activities!'
-  },
-  {
-    label: 'Arctic',
-    icon: BsSnow,
-    description: 'This property is in arctic environment!'
-  },
-  {
-    label: 'Desert',
-    icon: GiCactus,
-    description: 'This property is in the desert!'
-  },
-  {
-    label: 'Barns',
-    icon: GiBarn,
-    description: 'This property is in a barn!'
-  },
-  {
-    label: 'Lux',
-    icon: IoDiamond,
-    description: 'This property is brand new and luxurious!'
-  }
+  
 ]
 
 const Categories = () => {
