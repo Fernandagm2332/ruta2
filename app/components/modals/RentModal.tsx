@@ -175,7 +175,6 @@ const RentModal = () => {
         />
         <Map
           center={location?.latlng}
-          zoom={15}
         />        
       </div>
     );
