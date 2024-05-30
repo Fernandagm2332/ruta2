@@ -120,8 +120,8 @@ const SearchModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
+        title="¿Dónde quieres participar?"
+        subtitle="¡Encuentra el evento perfecto!"
       />
       <CountrySelect 
         value={location} 
@@ -137,8 +137,8 @@ const SearchModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
+          title="¿Cuándo planeas participar?"
+          subtitle="¡Asegúrate que el evento disponibles!"
         />
         <Calendar
           onChange={(value) => setDateRange(value.selection)}
@@ -152,21 +152,21 @@ const SearchModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="More information"
-          subtitle="Find your perfect place!"
+          title="Mas informacion"
+          subtitle="¡Encuentra el evento perfecto!"
         />
         <Counter 
           onChange={(value) => setGuestCount(value)}
           value={guestCount}
-          title="Guests" 
-          subtitle="How many guests are coming?"
+          title="Participantes" 
+          subtitle="¿Con cuantos participantes deseas competir?"
         />
         <hr />
         <Counter 
           onChange={(value) => setRoomCount(value)}
           value={roomCount}
-          title="Rooms" 
-          subtitle="How many rooms do you need?"
+          title="Etapas" 
+          subtitle="¿Cuantas etapas deseas?"
         />        
         <hr />
         <Counter 
@@ -174,8 +174,8 @@ const SearchModal = () => {
             setBathroomCount(value)
           }}
           value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
+          title="Categorías"
+          subtitle="¿Cuántas Categorías necesitas?"
         />
       </div>
     )
@@ -184,7 +184,7 @@ const SearchModal = () => {
   return (
     <Modal
       isOpen={searchModal.isOpen}
-      title="Filters"
+      title="Filtros"
       actionLabel={actionLabel}
       onSubmit={onSubmit}
       secondaryActionLabel={secondaryActionLabel}
