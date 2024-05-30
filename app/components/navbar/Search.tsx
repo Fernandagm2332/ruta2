@@ -13,10 +13,10 @@ const Search = () => {
   const params = useSearchParams();
   const { getByValue } = useCountries();
 
-  const  locationValue = params?.get('locationValue'); 
-  const  startDate = params?.get('startDate');
-  const  endDate = params?.get('endDate');
-  const  guestCount = params?.get('guestCount');
+  const locationValue = params?.get('locationValue'); 
+  const startDate = params?.get('startDate');
+  const endDate = params?.get('endDate');
+  const guestCount = params?.get('guestCount');
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
@@ -36,15 +36,15 @@ const Search = () => {
         diff = 1;
       }
 
-      return ${diff} Days;
+      return `${diff} Days`;
     }
 
-    return 'Any Week'
+    return 'Any Week';
   }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return ${guestCount} Guests;
+      return `${guestCount} Guests`;
     }
 
     return 'Add Guests';
@@ -124,5 +124,5 @@ const Search = () => {
     </div>
   );
 }
- 
-export default Search;
+
+export default Search;
