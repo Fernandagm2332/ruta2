@@ -186,13 +186,13 @@ const RentModal = () => {
       <div className="flex flex-col gap-8">
         <Heading
           title="Comparte algunos aspectos básicos sobre tu evento"
-          subtitle="Cuales son tus requisitos?"
+          subtitle="¿Cuales son tus requisitos?"
         />
         <Counter 
           onChange={(value) => setCustomValue('guestCount', value)}
           value={guestCount}
           title="Participantes" 
-          subtitle="Cuantos participantes permite tu evento"
+          subtitle="¿Cuantos participantes permite tu evento?"
         />
         <hr />
         <Counter 
@@ -206,7 +206,7 @@ const RentModal = () => {
           onChange={(value) => setCustomValue('bathroomCount', value)}
           value={bathroomCount}
           title="Categorias" 
-          subtitle="Cuantas categorias seran permitidas?"
+          subtitle="¿Cuantas categorias seran permitidas?"
         />
       </div>
     )
@@ -247,7 +247,7 @@ const RentModal = () => {
         <hr />
         <Input
           id="description"
-          label="Descripcion"
+          label="Descripción"
           disabled={isLoading}
           register={register}
           errors={errors}
