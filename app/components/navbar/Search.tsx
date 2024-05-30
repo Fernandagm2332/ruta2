@@ -46,7 +46,7 @@ return (
             text-center
           "
         >
-         Cualquier semana
+         Cualquier dia
         </div>
         <div 
           className="
@@ -60,7 +60,7 @@ return (
             gap-3
           "
         >
-          <div className="hidden sm:block">Add Guests</div>
+          <div className="hidden sm:block">No. Participantes</div>
           <div 
             className="
               p-2 
