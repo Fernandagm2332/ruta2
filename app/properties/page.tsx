@@ -12,8 +12,8 @@ const PropertiesPage = async () => {
 
   if (!currentUser) {
     return <EmptyState
-      title="No autorizado"
-      subtitle="Porfavor inicia sesion"
+      title="Desautorizado"
+      subtitle="Porfavor, inicia sesión!"
     />
   }
 
@@ -23,7 +23,7 @@ const PropertiesPage = async () => {
     return (
       <ClientOnly>
         <EmptyState
-          title="No se encontraron eventos propios"
+          title="No se han encontrado eventos propios"
           subtitle="Parece que no tienes eventos propios."
         />
       </ClientOnly>
