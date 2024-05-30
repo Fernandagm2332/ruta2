@@ -66,13 +66,13 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           "
         >
           <div>
-            {guestCount} guests
+            {guestCount} Participantes
           </div>
           <div>
-            {roomCount} rooms
+            {roomCount} Etapas
           </div>
           <div>
-            {bathroomCount} bathrooms
+            {bathroomCount} Categorias
           </div>
         </div>
       </div>
