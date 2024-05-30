@@ -131,7 +131,7 @@ const RegisterModal= () => {
               hover:underline
             "
           > 
-            Inicia sesion
+            Inicia Sesion
           </div>
         </div>
       </div>
