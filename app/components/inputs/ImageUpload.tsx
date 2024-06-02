@@ -9,7 +9,7 @@ declare global {
   var cloudinary: any;
 }
 
-
+const uploadPreset = "pgc9ehd5";
 
 interface ImageUploadProps {
   onChange: (value: string) => void;
@@ -67,7 +67,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                   fill 
                   style={{ objectFit: 'cover' }} 
                   src={value} 
-                  alt="Upload" 
+                  alt="House" 
                 />
               </div>
             )}
