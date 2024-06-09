@@ -1,8 +1,4 @@
-
 {
-//Esta configuración la usamos para
-//configurar Visual Studio Code para usar una instalación específica de TypeScript que esta en el directorio node_modules
-
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }
