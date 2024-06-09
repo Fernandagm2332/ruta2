@@ -1,24 +1,27 @@
 'use client'
+//Aqui creamos un formulario para que los usuarios puedan hacer una reserva
+// Importa React y useState
 import React, { useState } from 'react';
-import { Range } from "react-date-range";
-
+// Importa el componente Button y el componente Calendar
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
 
+// Define las propiedades del componente ListingReservation
 interface ListingReservationProps {
-  price: number;
-  dateRange: Range;
-  totalPrice: number;
-  onChangeDate: (value: Range) => void;
-  onSubmit: (formData: FormData) => void;
-  disabled: boolean;
-  disabledDates: Date[];
-  bloodType?: string;
-  socialSecurityNumber?: string;
-  emergencyPhoneNumber?: string;
-  category?: string;
+  price: number; // Precio del listado
+  dateRange: Range; // Rango de fechas seleccionadas
+  totalPrice: number; // Precio total de la reserva
+  onChangeDate: (value: Range) => void; // Función de cambio de fecha
+  onSubmit: (formData: FormData) => void; // Función de envío de formulario
+  disabled: boolean; // Estado de deshabilitación del formulario
+  disabledDates: Date[]; // Fechas deshabilitadas
+  bloodType?: string; // Tipo de sangre (opcional)
+  socialSecurityNumber?: string; // Número de seguro social (opcional)
+  emergencyPhoneNumber?: string; // Número de teléfono de emergencia (opcional)
+  category?: string; // Categoría del listado (opcional)
 }
 
+// Define el tipo de datos FormData
 interface FormData {
   name: string;
   email: string;
@@ -28,6 +31,7 @@ interface FormData {
   emergencyPhoneNumber: string;
 }
 
+// Componente funcional ListingReservation
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
   dateRange,
@@ -41,23 +45,27 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   emergencyPhoneNumber,
   category
 }) => {
+  // Define estados locales para los campos del formulario
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [bloodTypeValue, setBloodType] = useState(bloodType);
-  const [ssn, setSocialSecurityNumber] = useState(socialSecurityNumber);
-  const [emergencyPhone, setEmergencyPhoneNumber] = useState(emergencyPhoneNumber);
+  const [bloodTypeValue, setBloodType] = useState(bloodType ?? '');
+  const [ssn, setSocialSecurityNumber] = useState(socialSecurityNumber ?? '');
+  const [emergencyPhone, setEmergencyPhoneNumber] = useState(emergencyPhoneNumber ?? '');
 
+  // Función para manejar el envío del formulario
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = {
+    // Crea un objeto FormData con los datos del formulario
+    const formData: FormData = {
       name,
       email,
       phoneNumber,
-      bloodType: bloodTypeValue ?? '',
-      socialSecurityNumber: ssn ?? '',
-      emergencyPhoneNumber: emergencyPhone ?? ''
+      bloodType: bloodTypeValue,
+      socialSecurityNumber: ssn,
+      emergencyPhoneNumber: emergencyPhone
     };
+    // Llama a la función onSubmit pasando los datos del formulario
     onSubmit(formData);
   };
 
