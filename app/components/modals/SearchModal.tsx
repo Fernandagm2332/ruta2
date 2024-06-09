@@ -1,3 +1,8 @@
+
+//Este componente representa un modal de búsqueda que permite a los usuarios buscar eventos utilizando filtros como ubicación, fecha y detalles del evento 
+//El modal consta de varios pasos que guían al usuario a través del proceso de búsqueda 
+//El usuario puede seleccionar una ubicación, una fecha y proporcionar detalles adicionales sobre el evento, como el número de participantes, etapas y categorías deseadas
+
 'use client';
 
 import qs from 'query-string';
@@ -40,18 +45,22 @@ const SearchModal = () => {
     key: 'selection'
   });
 
+  // Componente dinámico para cargar el mapa
   const Map = useMemo(() => dynamic(() => import('../Map'), { 
     ssr: false 
   }), [location]);
 
+  // Función para retroceder al paso anterior
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
   }, []);
 
+  // Función para avanzar al siguiente paso
   const onNext = useCallback(() => {
     setStep((value) => value + 1);
   }, []);
 
+  // Función para manejar el envío del formulario
   const onSubmit = useCallback(async () => {
     if (step !== STEPS.INFO) {
       return onNext();
@@ -101,6 +110,7 @@ const SearchModal = () => {
     params
   ]);
 
+  // Etiqueta del botón de acción principal según el paso actual
   const actionLabel = useMemo(() => {
     if (step === STEPS.INFO) {
       return 'Search'
@@ -109,6 +119,7 @@ const SearchModal = () => {
     return 'Next'
   }, [step]);
 
+  // Etiqueta del botón de acción secundaria según el paso actual
   const secondaryActionLabel = useMemo(() => {
     if (step === STEPS.LOCATION) {
       return undefined
@@ -117,6 +128,7 @@ const SearchModal = () => {
     return 'Back'
   }, [step]);
 
+  // Contenido del cuerpo del modal según el paso actual
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
