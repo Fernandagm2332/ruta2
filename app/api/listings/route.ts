@@ -1,18 +1,21 @@
-import { NextResponse } from "next/server";
+// modulo que define una funcion para manejar solicitudes POST relacionadas con la creación de nuevos listados utilizando 
 
-import prisma from "@/app/libs/prismadb";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import { NextResponse } from "next/server"; 
 
+import prisma from "@/app/libs/prismadb"; // Importa la instancia de Prisma para conectarnos con la base de datos
+import getCurrentUser from "@/app/actions/getCurrentUser"; // Importa la función para obtener el usuario actual
+
+// Funcion para manejar solicitudes POST
 export async function POST(
-  request: Request, 
+  request: Request,
 ) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser(); // Obtiene el usuario actual
 
   if (!currentUser) {
-    return NextResponse.error();
+    return NextResponse.error(); // Si no hay usuario actual, retorna un error
   }
 
-  const body = await request.json();
+  const body = await request.json(); // Obtiene el cuerpo de la solicitud en formato JSON
   const { 
     title,
     description,
@@ -23,14 +26,16 @@ export async function POST(
     guestCount,
     location,
     price,
-   } = body;
+   } = body; // Extrae los datos del cuerpo de la solicitud
 
+  // Verifica si hay campos vacíos en el cuerpo de la solicitud
   Object.keys(body).forEach((value: any) => {
     if (!body[value]) {
-      NextResponse.error();
+      NextResponse.error(); // Si encuentra un campo vacío, retorna un error
     }
   });
 
+  // Crea un nuevo listado en la base de datos utilizando los datos proporcionados
   const listing = await prisma.listing.create({
     data: {
       title,
@@ -41,10 +46,11 @@ export async function POST(
       bathroomCount,
       guestCount,
       locationValue: location.value,
-      price: parseInt(price, 10),
-      userId: currentUser.id
-    }
+      price: parseInt(price, 10), // Convierte el precio a un entero
+      userId: currentUser.id, // Asigna el ID del usuario actual como propietario del listado
+    },
   });
 
-  return NextResponse.json(listing);
+  return NextResponse.json(listing); // Retorna la respuesta en formato JSON con los datos del nuevo listado
 }
+
