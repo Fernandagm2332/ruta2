@@ -1,3 +1,9 @@
+
+//Este componente representa un modal genérico que puede utilizarse para mostrar contenido emergente en la interfaz de usuario
+//Puede contener un título, un cuerpo, un pie de página y botones de acción. Se puede abrir y cerrar mediante el control del estado isOpen 
+//También puede contener un botón secundario opcional que puede tener una acción asociad
+//El modal se cierra cuando se hace clic fuera de él o en el botón de cierre
+
 'use client';
 
 import { useCallback, useEffect, useState } from "react";
@@ -6,16 +12,16 @@ import { IoMdClose } from "react-icons/io";
 import Button from "../Button";
 
 interface ModalProps {
-  isOpen?: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
-  title?: string;
-  body?: React.ReactElement;
-  footer?: React.ReactElement;
-  actionLabel: string;
-  disabled?: boolean;
-  secondaryAction?: () => void;
-  secondaryActionLabel?: string;
+  isOpen?: boolean; // Indica si el modal está abierto
+  onClose: () => void; // Función para cerrar el modal
+  onSubmit: () => void; // Función para manejar la acción principal del modal
+  title?: string; // Título del modal
+  body?: React.ReactElement; // Contenido del cuerpo del modal
+  footer?: React.ReactElement; // Contenido del pie de página del modal
+  actionLabel: string; // Etiqueta del botón de acción principal
+  disabled?: boolean; // Indica si los botones están deshabilitados
+  secondaryAction?: () => void; // Función para manejar la acción secundaria del modal
+  secondaryActionLabel?: string; // Etiqueta del botón de acción secundaria
 }
 
 const Modal: React.FC<ModalProps> = ({ 
@@ -97,7 +103,7 @@ const Modal: React.FC<ModalProps> = ({
           md:h-auto
           "
         >
-          {/*content*/}
+          {/* Contenido del modal */}
           <div className={`
             translate
             duration-300
@@ -122,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({
               focus:outline-none
             "
             >
-              {/*header*/}
+              {/* Cabecera del modal */}
               <div className="
                 flex 
                 items-center 
@@ -150,11 +156,11 @@ const Modal: React.FC<ModalProps> = ({
                   {title}
                 </div>
               </div>
-              {/*body*/}
+              {/* Cuerpo del modal */}
               <div className="relative p-6 flex-auto">
                 {body}
               </div>
-              {/*footer*/}
+              {/* Pie de página del modal */}
               <div className="flex flex-col gap-2 p-6">
                 <div 
                   className="
@@ -190,3 +196,4 @@ const Modal: React.FC<ModalProps> = ({
 }
 
 export default Modal;
+
