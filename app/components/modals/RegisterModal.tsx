@@ -1,3 +1,8 @@
+//Este componente representa un modal de registro que permite a los usuarios crear una nueva cuenta en la aplicación 
+//El modal incluye campos para el nombre, correo electrónico y contraseña del usuario 
+//También proporciona opciones para registrarse utilizando cuentas de Google o GitHub 
+//Los usuarios pueden alternar entre el modal de registro y el modal de inicio de sesión si ya tienen una cuenta existente
+
 'use client';
 
 import axios from "axios";
@@ -21,10 +26,12 @@ import LoginModal from "./LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal= () => {
+  // Hooks para controlar el estado del modal y la carga
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
   const loginModal = useLoginModal();
 
+  // Registro de campos del formulario utilizando react-hook-form
   const { 
     register, 
     handleSubmit,
@@ -39,9 +46,11 @@ const RegisterModal= () => {
     },
   });
 
+  // Función para manejar el envío del formulario de registro
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
+    // Llamada a la API para registrar al usuario
     axios.post('/api/register', data)
     .then(() => {
       toast.success('Success!')
@@ -55,12 +64,14 @@ const RegisterModal= () => {
       setIsLoading(false);
     })
   }
+  
+  // Función para alternar entre el modal de registro y el modal de inicio de sesión
   const toggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
   }, [loginModal, registerModal])
 
-
+  // Contenido del cuerpo del modal
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
@@ -95,6 +106,7 @@ const RegisterModal= () => {
     </div>
   );
 
+  // Contenido del pie de página del modal
   const footerContent = (
     <div className= "flex flex-col gap-4 mt-3"> 
       <hr />
@@ -138,6 +150,7 @@ const RegisterModal= () => {
     </div>
   )
 
+  // Renderización del modal
   return (
     <Modal
       disabled={isLoading}
@@ -153,4 +166,3 @@ const RegisterModal= () => {
 }
 
 export default RegisterModal;
- 
