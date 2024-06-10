@@ -1,31 +1,35 @@
-'use client';
+'use client'; // Indica que este archivo se ejecutará en el cliente (navegador)
 
-import { useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
-import { BiSearch } from 'react-icons/bi';
-import { differenceInDays } from 'date-fns';
+// Importaciones
+import { useSearchParams } from 'next/navigation'; // Hook de Next.js para obtener los parámetros de búsqueda de la URL
+import { useMemo } from 'react'; // Hook de React para memorizar valores calculados
+import { BiSearch } from 'react-icons/bi'; // Icono de búsqueda de react-icons
+import { differenceInDays } from 'date-fns'; // Función para calcular la diferencia en días entre dos fechas
 
-import useSearchModal from '@/app/hooks/useSearchModal';
-import useCountries from '@/app/hooks/useCountries';
+import useSearchModal from '@/app/hooks/useSearchModal'; // Hook personalizado para controlar el estado del modal de búsqueda
+import useCountries from '@/app/hooks/useCountries'; // Hook personalizado para obtener información sobre países
 
+// Definición del componente funcional Search
 const Search = () => {
-  const searchModal = useSearchModal();
-  const params = useSearchParams();
-  const { getByValue } = useCountries();
+  const searchModal = useSearchModal(); // Inicializa el hook para controlar el modal de búsqueda
+  const params = useSearchParams(); // Obtiene los parámetros de búsqueda de la URL
+  const { getByValue } = useCountries(); // Desestructura la función getByValue del hook useCountries
 
-  const  locationValue = params?.get('locationValue'); 
-  const  startDate = params?.get('startDate');
-  const  endDate = params?.get('endDate');
-  const  guestCount = params?.get('guestCount');
+  // Obtiene los valores de los parámetros de búsqueda
+  const locationValue = params?.get('locationValue'); 
+  const startDate = params?.get('startDate');
+  const endDate = params?.get('endDate');
+  const guestCount = params?.get('guestCount');
 
+  // Memoiza el valor de la etiqueta de ubicación
   const locationLabel = useMemo(() => {
     if (locationValue) {
       return getByValue(locationValue as string)?.label;
     }
-
     return 'Anywhere';
   }, [locationValue, getByValue]);
 
+  // Memoiza el valor de la etiqueta de duración
   const durationLabel = useMemo(() => {
     if (startDate && endDate) {
       const start = new Date(startDate as string);
@@ -39,20 +43,21 @@ const Search = () => {
       return `${diff} Days`;
     }
 
-    return 'Any Week'
+    return 'Any Week';
   }, [startDate, endDate]);
 
+  // Memoiza el valor de la etiqueta de invitados
   const guestLabel = useMemo(() => {
     if (guestCount) {
       return `${guestCount} Guests`;
     }
-
     return 'Add Guests';
   }, [guestCount]);
 
+  // Retorno del componente JSX
   return ( 
     <div
-      onClick={searchModal.onOpen}
+      onClick={searchModal.onOpen} // Abre el modal de búsqueda al hacer clic en el contenedor
       className="
         border-[1px] 
         w-full 
@@ -80,7 +85,7 @@ const Search = () => {
             px-6
           "
         >
-          {locationLabel}
+          {locationLabel} {/* Muestra la etiqueta de ubicación */}
         </div>
         <div 
           className="
@@ -94,7 +99,7 @@ const Search = () => {
             text-center
           "
         >
-          {durationLabel}
+          {durationLabel} {/* Muestra la etiqueta de duración */}
         </div>
         <div 
           className="
@@ -108,7 +113,7 @@ const Search = () => {
             gap-3
           "
         >
-          <div className="hidden sm:block">{guestLabel}</div>
+          <div className="hidden sm:block">{guestLabel}</div> {/* Muestra la etiqueta de invitados */}
           <div 
             className="
               p-2 
@@ -117,12 +122,14 @@ const Search = () => {
               text-white
             "
           >
-            <BiSearch size={18} />
+            <BiSearch size={18} /> {/* Icono de búsqueda */}
           </div>
         </div>
       </div>
     </div>
   );
 }
- 
+
+// Exporta el componente Search para que pueda ser utilizado en otras partes de la aplicación
 export default Search;
+
