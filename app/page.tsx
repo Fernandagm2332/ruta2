@@ -1,6 +1,7 @@
 //Este archivo define el componente principal de la página de inicio, que obtiene las listas de eventos y la información del usuario actual
 //Si no hay listas disponibles, muestra un estado vacío
 //Si hay listas, las muestra en una cuadrícula utilizando el componente ListingCard
+'use client';
 import getCurrentUser from "./actions/getCurrentUser";
 import getListings, { IListingsParams } from "./actions/getListings";
 import ClientOnly from "./components/ClientOnly";
