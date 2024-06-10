@@ -1,10 +1,9 @@
 'use client';
 
 interface ContainerProps {
-  children: React.ReactNode; // Define la propiedad children que representa los elementos secundarios que el componente envolverá.
-}
+  children: React.ReactNode
+};
 
-// Define el componente funcional Container que acepta ContainerProps.
 const Container: React.FC<ContainerProps> = ({ children }) => {
   return ( 
     <div
@@ -19,7 +18,7 @@ const Container: React.FC<ContainerProps> = ({ children }) => {
     >
       {children}
     </div>
-  );
+   );
 }
  
-export default Container; // Exporta el componente Container como el valor predeterminado del módulo.
+export default Container; 
