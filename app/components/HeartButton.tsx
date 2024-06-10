@@ -1,23 +1,21 @@
 'use client';
 
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"; // Importa los iconos de corazón de react-icons.
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import { SafeUser } from "@/app/types"; // Importa el tipo SafeUser desde el proyecto.
+import { SafeUser } from "@/app/types";
 
-import ClientOnly from "./ClientOnly"; // Importa el componente ClientOnly.
-import useFavorite from "../hooks/useFavorite"; // Importa el hook personalizado useFavorite.
+import ClientOnly from "./ClientOnly";
+import useFavorite from "../hooks/useFavorite";
 
 interface HeartButtonProps {
-  listingId: string; // ID del listado al que se va a asociar el botón de corazón.
-  currentUser?: SafeUser | null; // Información del usuario actual, opcional.
+  listingId: string
+  currentUser?: SafeUser | null;
 }
 
-// Define el componente HeartButton, que acepta HeartButtonProps
 const HeartButton: React.FC<HeartButtonProps> = ({ 
   listingId,
   currentUser
 }) => {
-  // Utiliza el hook useFavorite para determinar si el listado ha sido marcado como favorito y para manejar el cambio de estado de favorito.
   const { hasFavorited, toggleFavorite } = useFavorite({
     listingId,
     currentUser
@@ -25,7 +23,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
 
   return (
     <div 
-      onClick={toggleFavorite} // Llama a toggleFavorite cuando se hace clic en el botón
+      onClick={toggleFavorite}
       className="
         relative
         hover:opacity-80
@@ -33,7 +31,6 @@ const HeartButton: React.FC<HeartButtonProps> = ({
         cursor-pointer
       "
     >
-      {/* Icono de corazón vacío que se muestra detrás del corazón lleno */}
       <AiOutlineHeart
         size={28}
         className="
@@ -43,7 +40,6 @@ const HeartButton: React.FC<HeartButtonProps> = ({
           -right-[2px]
         "
       />
-      {/* Icono de corazón lleno que cambia de color dependiendo si está marcado como favorito */}
       <AiFillHeart
         size={24}
         className={
@@ -51,7 +47,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
         }
       />
     </div>
-  );
+   );
 }
  
-export default HeartButton;
+export default HeartButton; 
