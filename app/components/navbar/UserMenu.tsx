@@ -13,38 +13,34 @@ import { SafeUser } from "@/app/types";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 
-// Interfaz para las propiedades del componente UserMenu
 interface UserMenuProps {
-  currentUser?: SafeUser | null;
+  currentUser?: SafeUser | null
 }
 
-// Definición del componente UserMenu
 const UserMenu: React.FC<UserMenuProps> = ({
   currentUser
 }) => {
-  const router = useRouter(); // Hook para manejar la navegación
+  const router = useRouter();
 
-  const loginModal = useLoginModal(); // Hook para manejar el modal de login
-  const registerModal = useRegisterModal(); // Hook para manejar el modal de registro
-  const rentModal = useRentModal(); // Hook para manejar el modal de rentas
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+  const rentModal = useRentModal();
 
-  const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú está abierto o cerrado
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Función para alternar el estado de isOpen
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
-  // Función para manejar el clic en el botón de rentar
   const onRent = useCallback(() => {
     if (!currentUser) {
-      return loginModal.onOpen(); // Abre el modal de login si no hay usuario actual
+      return loginModal.onOpen();
     }
 
-    rentModal.onOpen(); // Abre el modal de rentas si hay usuario actual
+    rentModal.onOpen();
   }, [loginModal, rentModal, currentUser]);
 
-  return (
+  return ( 
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div 
@@ -65,26 +61,26 @@ const UserMenu: React.FC<UserMenuProps> = ({
           Pon en Ruta Veloz tus eventos!
         </div>
         <div 
-          onClick={toggleOpen}
-          className="
-            p-4
-            md:py-1
-            md:px-2
-            border-[1px] 
-            border-neutral-200 
-            flex 
-            flex-row 
-            items-center 
-            gap-3 
-            rounded-full 
-            cursor-pointer 
-            hover:shadow-md 
-            transition
+        onClick={toggleOpen}
+        className="
+          p-4
+          md:py-1
+          md:px-2
+          border-[1px] 
+          border-neutral-200 
+          flex 
+          flex-row 
+          items-center 
+          gap-3 
+          rounded-full 
+          cursor-pointer 
+          hover:shadow-md 
+          transition
           "
         >
-          <AiOutlineMenu /> {/* Icono del menú */}
+          <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={currentUser?.image} /> {/* Muestra el avatar del usuario actual si existe */}
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -105,7 +101,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         >
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
-              <> {/* Menú cuando hay un usuario autenticado */}
+              <>
                 <MenuItem 
                   label="Mis eventos" 
                   onClick={() => router.push('/trips')}
@@ -133,7 +129,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 />
               </>
             ) : (
-              <> {/* Menú cuando no hay usuario autenticado */}
+              <>
                 <MenuItem 
                   label="Login" 
                   onClick={loginModal.onOpen}
@@ -148,6 +144,10 @@ const UserMenu: React.FC<UserMenuProps> = ({
         </div>
       )}
     </div>
+   );
+}
+ 
+export default UserMenu;
   );
 }
 
