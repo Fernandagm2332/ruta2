@@ -1,4 +1,10 @@
-import {Nunito} from "next/font/google";
+
+//Este archivo configura el diseño raíz de la aplicación, incluyendo la importación de estilos globales, 
+//componentes modales para registro, inicio de sesión, alquiler y búsqueda, así como el proveedor de tostadas para notificaciones
+//También establece la fuente global y obtiene el usuario actual para pasarlo a la barra de navegación
+
+
+import { Nunito } from "next/font/google";
 
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
@@ -10,15 +16,13 @@ import SearchModal from "./components/modals/SearchModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
 
-
-
-export const metadata= {
+export const metadata = {
   title: "Vuelta Veloz",
-  description: "Vuelta  veloz!",
+  description: "Vuelta veloz!",
 }
 
 const font = Nunito({
-  subsets : ["latin"]
+  subsets: ["latin"]
 });
 
 export default async function RootLayout({
@@ -30,19 +34,19 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className= {font.className}>
-        <ClientOnly> 
+      <body className={font.className}>
+        <ClientOnly>
           <ToasterProvider />
-          <SearchModal/>
-          <RentModal/> 
-          <LoginModal/> 
-          <RegisterModal/>
-          <Navbar currentUser = {currentUser}/>
+          <SearchModal />
+          <RentModal />
+          <LoginModal />
+          <RegisterModal />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         <div className="pb-20 pt-28">
           {children}
         </div>
-        </body>
+      </body>
     </html>
   )
 }
