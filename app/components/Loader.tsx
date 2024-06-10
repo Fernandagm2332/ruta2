@@ -1,24 +1,24 @@
 'use client';
 
-import { PuffLoader } from "react-spinners"; // Importa el componente PuffLoader de la biblioteca react-spinners para mostrar una animación de carga.
+import { PuffLoader } from "react-spinners";
 
 const Loader = () => {
   return ( 
     <div
-      className="
-        h-[70vh]
-        flex 
-        flex-col 
-        justify-center 
-        items-center 
-      "
+    className="
+      h-[70vh]
+      flex 
+      flex-col 
+      justify-center 
+      items-center 
+    "
     >
       <PuffLoader
-        size={100} // Tamaño del loader en píxeles.
-        color="red" // Color del loader.
+        size={100}
+        color="red"
       />
     </div>
-  );
+   );
 }
  
 export default Loader;
