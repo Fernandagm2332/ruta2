@@ -55,4 +55,3 @@ const Home = async ({ searchParams }: HomeProps) => {
 
 
 export default Home;
-
