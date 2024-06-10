@@ -38,4 +38,4 @@ const CategoryView: React.FC<CategoryViewProps> = ({
    );
 }
  
-export default CategoryView; // Exporta el componente CategoryView
+export default ListingCategory; // Exporta el componente CategoryView
