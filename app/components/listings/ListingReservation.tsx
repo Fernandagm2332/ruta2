@@ -2,6 +2,7 @@
 //Aqui creamos un formulario para que los usuarios puedan hacer una reserva
 // Importa React y useState
 import React, { useState } from 'react';
+import { Range } from "react-date-range";
 // Importa el componente Button y el componente Calendar
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
